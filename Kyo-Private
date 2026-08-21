@@ -757,6 +757,8 @@ end)
 -- Create Tab
 local upgradesTab = window:AddTab("Ultimates")
 
+upgradesTab:AddLabel("Noted: You need to respawn after upgrading.")
+
 -- Helper function to create a looping switch
 local function addLoopSwitch(tab, upgradeName, delayTime)
     delayTime = delayTime or 0.1 -- Adjust loop speed if needed
