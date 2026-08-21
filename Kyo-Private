@@ -754,6 +754,46 @@ mainTab:AddSwitch("LoopSpeed 500", function(state)
     end
 end)
 
+-- Create Tab
+local upgradesTab = window:AddTab("Ultimates")
+
+-- Helper function to create a looping switch
+local function addLoopSwitch(tab, upgradeName, delayTime)
+    delayTime = delayTime or 0.1 -- Adjust loop speed if needed
+    local active = false
+
+    tab:AddSwitch(upgradeName, function(state)
+        active = state
+        if active then
+            task.spawn(function()
+                local args = {
+                    [1] = "upgradeUltimate",
+                    [2] = upgradeName
+                }
+                
+                while active do
+                    game:GetService("ReplicatedStorage").rEvents.ultimatesRemote:InvokeServer(unpack(args))
+                    task.wait(delayTime)
+                end
+            end)
+        end
+    end)
+end
+
+-- Add Looping Switches for each upgrade
+addLoopSwitch(upgradesTab, "+5% Rep Speed")
+addLoopSwitch(upgradesTab, "+1 Pet Slot")
+addLoopSwitch(upgradesTab, "+10 Item Capacity")
+addLoopSwitch(upgradesTab, "+1 Daily Spin")
+addLoopSwitch(upgradesTab, "+10% Lucky")
+addLoopSwitch(upgradesTab, "x2 Quest Rewards")
+addLoopSwitch(upgradesTab, "Muscle Mind")
+addLoopSwitch(upgradesTab, "Jungle Swift")
+addLoopSwitch(upgradesTab, "Infernal Health")
+addLoopSwitch(upgradesTab, "Galaxy Gains")
+addLoopSwitch(upgradesTab, "Demon Damage")
+addLoopSwitch(upgradesTab, "Golden Rebirth")
+
 local mainTab = window:AddTab("Crystals")
 
 -- State variables
